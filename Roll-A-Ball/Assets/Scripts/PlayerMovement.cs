@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float moveSpeed;
     private int score = 0;
+    public Text displayText;
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -24,10 +28,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical") * moveSpeed;
         rb.AddForce(x, 0, z);
 
-        if (score >= 8)
-        {
-            print("Congrats, you are a real GAMER");
-        }
+        
     }
     private void OnTriggerEnter(Collider otherObject)
     {
@@ -36,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
             Destroy(otherObject.gameObject);
             score = score + 1;
             print("Score = " + score);
+            if (score >= 8)
+            {
+                displayText.text = "Winner";
+            }
             //score += 1;
             //score++;
             //All three do the same thing, add 1 to score
